@@ -1,0 +1,30 @@
+body{
+	background-color: white;
+
+}
+
+
+#container{
+	width: 600px;
+	height: 600px;
+	margin: 0 auto;
+	border: 2px solid black;
+/*	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;*/
+	position: relative;
+}
+
+.row{
+	display: inline;
+}
+
+#id1, #id2, #id3, #id4, #id5, #id6, #id7,#id8,#id9{
+	width: 200px;
+	height: 200px;
+	border: 2px solid blue;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	float: left;
+}
