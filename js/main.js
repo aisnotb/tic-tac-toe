@@ -31,9 +31,8 @@ $(document).ready(function(){
 	}
 
 	function showGameInfoConstantly(){
-		setInterval(function(){
-			$("#game-info").toggle();
-		}, 1500);
+		$("label").fadeOut(500);
+		$("label").fadeIn(500);
 	}
 
 	var game = new Game();
@@ -41,5 +40,5 @@ $(document).ready(function(){
 
 	showGameInfoConstantly();
 
-
+	setInterval(showGameInfoConstantly, 2000);
 });
