@@ -34,6 +34,13 @@ $(document).ready(function(){
 	showGameInfoConstantly();
 	setInterval(showGameInfoConstantly, 2000);
 
-	var game = new Game(3);
+
+	var elem = $("#container");
+	var configObj = {
+		boardSize: 3,
+		elem: elem
+	};
+
+	var game = new Game(configObj);
 	game.init();
 });

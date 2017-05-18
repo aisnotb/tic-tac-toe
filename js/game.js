@@ -1,7 +1,7 @@
-function Game(size, elem){
+function Game(configObj){
 	
-	var boardSize = size;
-
+	var boardSize = configObj.boardSize;
+	var elem = configObj.elem;
 
 	this.isOn = false;
 
@@ -26,11 +26,14 @@ function Game(size, elem){
 	function createBoard(){
 		// how can i represent board
 		for (var i = 0; i < boardSize; i++) {
-			$("#container").append("<div class='row'>");
+
+			elem.append("<div class='row'>");
 			for(var j = 0; j < boardSize; j++){
-				$(".row:nth-child(" + (i+1) + ")").append("<div id=id" + (j+1) + ">" + "</div>");
+		
+				$(".row:nth-child(" + (i+1) + ")").append("<div id=id" + (j+1) * (i+1) + ">" + "</div>");
+
 			}
-			$("#container").append("</div>");
+			elem.append("</div>");
 		}
 	}
 
