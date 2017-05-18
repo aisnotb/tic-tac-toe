@@ -10,8 +10,8 @@ function Game(configObj){
 	this.init = function(){
 		alert('inited');
 		setTimeout(gameStartMessage, 1000);
-		initBoard();
 		createBoard();
+		initBoard();
 		update();
 	};
 
@@ -25,13 +25,12 @@ function Game(configObj){
 
 	function createBoard(){
 		// how can i represent board
+		var k = 1;
 		for (var i = 0; i < boardSize; i++) {
-
 			elem.append("<div class='row'>");
 			for(var j = 0; j < boardSize; j++){
-		
-				$(".row:nth-child(" + (i+1) + ")").append("<div id=id" + (j+1) * (i+1) + ">" + "</div>");
-
+				$(".row:nth-child(" + (i+1) + ")").append("<div id=id" + k + ">" + "</div>");
+				k++;
 			}
 			elem.append("</div>");
 		}
@@ -45,8 +44,8 @@ function Game(configObj){
 	}
 
 	function initBoard(){
-		for (var i = 0; i < 9; i++) {
-			board.push('x');
+		for (var i = 1; i <= 9; i++) {
+			$("#id" + i).text('x');
 		}
 	}
 
