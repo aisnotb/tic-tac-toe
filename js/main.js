@@ -1,9 +1,6 @@
 $(document).ready(function(){
 
-	$(".row").on('click', function(){
-		alert('you clicked on row');
-	});
-
+	console.clear();
 	$('#x').on('click', function(e){
 		console.log(e.target.id);
 		hideStartMessage();
@@ -34,11 +31,9 @@ $(document).ready(function(){
 		$("label").fadeOut(500);
 		$("label").fadeIn(500);
 	}
-
-	var game = new Game();
-	game.init();
-
 	showGameInfoConstantly();
-
 	setInterval(showGameInfoConstantly, 2000);
+
+	var game = new Game(3);
+	game.init();
 });

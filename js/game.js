@@ -1,5 +1,8 @@
-function Game(){
+function Game(size, elem){
 	
+	var boardSize = size;
+
+
 	this.isOn = false;
 
 	var board = [];
@@ -8,6 +11,7 @@ function Game(){
 		alert('inited');
 		setTimeout(gameStartMessage, 1000);
 		initBoard();
+		createBoard();
 		update();
 	};
 
@@ -18,6 +22,17 @@ function Game(){
 	this.reset = function(){
 		this.init();
 	};
+
+	function createBoard(){
+		// how can i represent board
+		for (var i = 0; i < boardSize; i++) {
+			$("#container").append("<div class='row'>");
+			for(var j = 0; j < boardSize; j++){
+				$(".row:nth-child(" + (i+1) + ")").append("<div id=id" + (j+1) + ">" + "</div>");
+			}
+			$("#container").append("</div>");
+		}
+	}
 
 	function update(){
 		console.log('Board is '+ board);
