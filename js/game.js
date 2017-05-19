@@ -44,17 +44,17 @@ function Game(configObj){
 		}
 	}
 
-	function update(){
-		console.log('Board is '+ board);
-		for(var i = 0 ; i < 9 ; i++){
-			console.log(board[i]);
-		}
-	}
-
+	// function update(){
+	// 	console.log('Board is '+ board);
+	// 	for(var i = 0 ; i < 9 ; i++){
+	// 		console.log(board[i]);
+	// 	}
+	// }
+	
 	function userInput(){}
 
 	function isOccupied(number){
-		if ($("#id"+number).text() === ''){
+		if ($("#id"+number).text() == ''){
 			return false;
 		}else{
 			console.log("this place is occupied");
@@ -64,6 +64,7 @@ function Game(configObj){
 
 	function place(number){
 		$("#id"+number).text('balabalab');
+		board[number-1] = userChoice;
 	}
 
 	function random(){
@@ -72,12 +73,17 @@ function Game(configObj){
 	}
 
 	function isGameOver(){
+		//brute force 
+		for( var i = 0 ; i < boardSize ; i++){
+			for(var j = 0 ; j < boardSize; j++){
 
+			}
+		}
 	}
 
 	this.letAiThink = function(){
 		if (isOccupied(random())) {
-			letAiThink();
+			this.letAiThink();
 		}else{
 			place(random()); // todo
 		}
