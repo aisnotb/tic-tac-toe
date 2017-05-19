@@ -1,14 +1,16 @@
 function Game(configObj){
 	
 	var boardSize = configObj.boardSize;
-	var elem = configObj.elem;
+	var elem = configObj.elem;//this is the element that will be appended with board
+	var userChoice = configObj.userChoice;
+	console.log('user choice is ' + userChoice);
 
 	this.isOn = false;
+	// var userChoice = 'x' || 'o';
 
 	var board = [];
 
 	this.init = function(){
-		alert('inited');
 		setTimeout(gameStartMessage, 1000);
 		createBoard();
 		initBoard();
@@ -29,10 +31,16 @@ function Game(configObj){
 		for (var i = 0; i < boardSize; i++) {
 			elem.append("<div class='row'>");
 			for(var j = 0; j < boardSize; j++){
-				$(".row:nth-child(" + (i+1) + ")").append("<div id=id" + k + ">" + "</div>");
+				$(".row:nth-child(" + (i+1) + ")").append("<div id=id" + k + ">" + "<span></span>" + "</div>");
 				k++;
 			}
 			elem.append("</div>");
+		}
+	}
+
+	function initBoard(){
+		for (var i = 1; i <= 9; i++) {
+			$("span").text('');
 		}
 	}
 
@@ -43,15 +51,41 @@ function Game(configObj){
 		}
 	}
 
-	function initBoard(){
-		for (var i = 1; i <= 9; i++) {
-			$("#id" + i).text('x');
+	function userInput(){}
+
+	function isOccupied(number){
+		if ($("#id"+number).text() === ''){
+			return false;
+		}else{
+			console.log("this place is occupied");
+			return true;
 		}
 	}
 
-	function userInput(){}
+	function place(number){
+		$("#id"+number).text('balabalab');
+	}
 
-	function computerMakeChoice(){}
+	function random(){
+		var random = Math.floor(Math.random() * Math.pow(configObj.boardSize, 2)+ 1);
+		return random;
+	}
+
+	function isGameOver(){
+
+	}
+
+	this.letAiThink = function(){
+		if (isOccupied(random())) {
+			letAiThink();
+		}else{
+			place(random()); // todo
+		}
+	};
+
+	function letAiThinkHarder() {
+		//hard mode
+	}
 
 	function gameStartMessage(){
 		$("#gamePromote").show();

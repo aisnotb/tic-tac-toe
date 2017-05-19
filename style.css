@@ -31,6 +31,13 @@ body{
 	float: left;
 }
 
+span{
+	height: 200px;
+	margin: 0 auto;	
+	border: 1px solid black;
+	display: block;
+}
+
 #gamePromote{
 	width: 600px;
 	display: none;

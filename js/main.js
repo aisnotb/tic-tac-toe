@@ -1,46 +1,63 @@
 $(document).ready(function(){
-
 	console.clear();
-	$('#x').on('click', function(e){
-		console.log(e.target.id);
+
+	var userChooseX = false;
+	var userChooseO = false;
+	var userChoice;
+
+	function reset(){
+		userChooseX = false;
+		userChooseO = false;
+	}
+
+
+	$('#x').on('click', function(){
+		reset();
+		userChooseX = 'X';
+		userChoice = userChooseX;
 		hideStartMessage();
-		function getUserInput(){
-			if (e.target==x) {
-				console.log('user info is ' + e.target);
-			}
-		}
-		getUserInput();
 	});
 
-	$('#o').on('click', function(e){
-		console.log(e.target.id);
+	$('#o').on('click', function(){
+		reset();
+		userChooseO = 'O';
+		userChoice = userChooseO;
 		hideStartMessage();
-		function getUserInput(e){
-			if (e.target==o) {
-				console.log('user info is ' + e.target);
-			}
-			getUserInput();
-		}
 	});
+
+	function respondToClick(){
+		for (var i = 1; i <= configObj.boardSize * configObj.boardSize ; i++) {
+			(function(i){
+				var elem = $("#id" + i);
+				elem.on('click',function(){
+					console.log("id " + i + " is clicked");
+					$(elem).text(userChoice);
+					game.letAiThink();
+				});
+
+			})(i);
+		}
+	}
 
 	function hideStartMessage(){
 		$('#gamePromote').hide('slow');
+		respondToClick();
 	}
 
 	function showGameInfoConstantly(){
 		$("label").fadeOut(500);
 		$("label").fadeIn(500);
 	}
-	showGameInfoConstantly();
 	setInterval(showGameInfoConstantly, 2000);
-
 
 	var elem = $("#container");
 	var configObj = {
 		boardSize: 3,
-		elem: elem
+		elem: elem, //element to be appendto
+		userChoice: userChoice
 	};
 
 	var game = new Game(configObj);
 	game.init();
+
 });
