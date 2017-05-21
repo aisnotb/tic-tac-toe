@@ -4,16 +4,17 @@ $(document).ready(function(){
 	var userChooseX = false;
 	var userChooseO = false;
 	var userChoice;
+	var pcChoice;
 
 	function reset(){
 		userChooseX = false;
 		userChooseO = false;
 	}
 
-
 	$('#x').on('click', function(){
 		reset();
 		userChooseX = 'X';
+		pcChoice  = 'O';
 		userChoice = userChooseX;
 		hideStartMessage();
 	});
@@ -21,6 +22,7 @@ $(document).ready(function(){
 	$('#o').on('click', function(){
 		reset();
 		userChooseO = 'O';
+		pcChoice = 'X';
 		userChoice = userChooseO;
 		hideStartMessage();
 	});
@@ -31,12 +33,17 @@ $(document).ready(function(){
 				var elem = $("#id" + i);
 				elem.on('click',function(){
 					console.log("id " + i + " is clicked");
-					$(elem).text(userChoice);
+					// $(elem).text(userChoice);
+					game.place(i, userChoice);
 					game.letAiThink();
 				});
 
 			})(i);
 		}
+	}
+
+	function gameStartMessage(){
+		$("#gamePromote").show();
 	}
 
 	function hideStartMessage(){
@@ -60,9 +67,11 @@ $(document).ready(function(){
 	var configObj = {
 		boardSize: 3,
 		elem: elem, //element to be appendto
-		userChoice: userChoice
+		userChoice: userChoice,
+		pcChoice: pcChoice
 	};
 
+	setTimeout(gameStartMessage, 1000);
 	var game = new Game(configObj);
 	game.init();
 

@@ -3,7 +3,7 @@ function Game(configObj){
 	var boardSize = configObj.boardSize;
 	var elem = configObj.elem;//this is the element that will be appended with board
 	var userChoice = configObj.userChoice;
-	console.log('user choice is ' + userChoice);
+	var pcChoice = configObj.pcChoice;
 
 	this.isOn = false;
 	// var userChoice = 'x' || 'o';
@@ -12,9 +12,14 @@ function Game(configObj){
 	var clicked = new Array(configObj.boardSize * configObj.boardSize);
 
 	this.init = function(){
-		setTimeout(gameStartMessage, 1000);
 		createBoard();
 		initBoard();
+	};
+
+	this.place = function(number, item){
+		$("#id"+number).text(item);
+		clicked[number-1] = true;
+		board[number-1] = userChoice;
 	};
 
 	this.end = function(){
@@ -23,6 +28,22 @@ function Game(configObj){
 
 	this.reset = function(){
 		this.init();
+	};
+
+	this.letAiThink = function(){
+		userInput();
+		console.log("thinking");
+		var temp = random();
+
+		console.log('random is ' + temp);
+		if (isOccupied(temp)) {
+			console.log('is occupide');
+			this.letAiThink();
+		}else{
+			this.place(temp, pcChoice); 
+			console.log("pc choice is " + pcChoice);
+			clicked[temp-1] = true;
+		}
 	};
 
 	function createBoard(){
@@ -39,30 +60,22 @@ function Game(configObj){
 	}
 
 	function initBoard(){
+		// $("span").text('');
 		for (var i = 1; i <= 9; i++) {
-			$("span").text('');
 			clicked[i-1] = false;
 		}
 	}
 	
-	function userInput(){}
-
-	function isOccupied(number){
-		if ($("#id"+number).text() == ''){
-			return false;
-		}else{
-			console.log("this place is occupied");
-			return true;
-		}
+	function userInput(){
+		console.log('user choice is ' + userChoice);
+		console.log('pc choice is ' + pcChoice);
 	}
 
-	function place(number){
-		if(clicked[number-1] == false){
-			$("#id"+number).text('balabalab');
-			clicked[number-1] = true;
-			board[number-1] = userChoice;
+	function isOccupied(number){
+		if(clicked[number-1] === true){
+			return true;
 		}else{
-			alert("place is occupied");
+			return false;
 		}
 	}
 
@@ -80,21 +93,8 @@ function Game(configObj){
 		}
 	}
 
-	this.letAiThink = function(){
-		var temp = random();
-		if (isOccupied(temp)) {
-			this.letAiThink();
-		}else{
-			place(temp); // todo
-		}
-	};
-
 	function letAiThinkHarder() {
 		//hard mode
-	}
-
-	function gameStartMessage(){
-		$("#gamePromote").show();
 	}
 
 }
