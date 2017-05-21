@@ -48,7 +48,13 @@ $(document).ready(function(){
 		$("label").fadeOut(500);
 		$("label").fadeIn(500);
 	}
-	setInterval(showGameInfoConstantly, 2000);
+
+	for (var i = 0; i < 3; i++) {
+		(function(i){
+			setTimeout(showGameInfoConstantly, 2000);
+		})(i);
+	}
+
 
 	var elem = $("#container");
 	var configObj = {

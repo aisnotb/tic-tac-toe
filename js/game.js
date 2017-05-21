@@ -9,12 +9,12 @@ function Game(configObj){
 	// var userChoice = 'x' || 'o';
 
 	var board = [];
+	var clicked = new Array(configObj.boardSize * configObj.boardSize);
 
 	this.init = function(){
 		setTimeout(gameStartMessage, 1000);
 		createBoard();
 		initBoard();
-		update();
 	};
 
 	this.end = function(){
@@ -41,15 +41,9 @@ function Game(configObj){
 	function initBoard(){
 		for (var i = 1; i <= 9; i++) {
 			$("span").text('');
+			clicked[i-1] = false;
 		}
 	}
-
-	// function update(){
-	// 	console.log('Board is '+ board);
-	// 	for(var i = 0 ; i < 9 ; i++){
-	// 		console.log(board[i]);
-	// 	}
-	// }
 	
 	function userInput(){}
 
@@ -63,8 +57,13 @@ function Game(configObj){
 	}
 
 	function place(number){
-		$("#id"+number).text('balabalab');
-		board[number-1] = userChoice;
+		if(clicked[number-1] == false){
+			$("#id"+number).text('balabalab');
+			clicked[number-1] = true;
+			board[number-1] = userChoice;
+		}else{
+			alert("place is occupied");
+		}
 	}
 
 	function random(){
@@ -82,10 +81,11 @@ function Game(configObj){
 	}
 
 	this.letAiThink = function(){
-		if (isOccupied(random())) {
+		var temp = random();
+		if (isOccupied(temp)) {
 			this.letAiThink();
 		}else{
-			place(random()); // todo
+			place(temp); // todo
 		}
 	};
 
