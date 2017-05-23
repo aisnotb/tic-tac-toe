@@ -14,6 +14,9 @@ function Game(configObj){
 	this.init = function(){
 		createBoard();
 		initBoard();
+		// if (userChoice === 'O') {
+		// 	this.letAiThink();
+		// }
 	};
 
 	this.place = function(number, item){
@@ -37,7 +40,7 @@ function Game(configObj){
 
 		console.log('random is ' + temp);
 		if (isOccupied(temp)) {
-			console.log('is occupide');
+			console.log('this place is occupided');
 			this.letAiThink();
 		}else{
 			this.place(temp, pcChoice); 
@@ -80,6 +83,7 @@ function Game(configObj){
 	}
 
 	function random(){
+		//random will be a number between [1, 10)  1-9
 		var random = Math.floor(Math.random() * Math.pow(configObj.boardSize, 2)+ 1);
 		return random;
 	}
