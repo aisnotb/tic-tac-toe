@@ -11,13 +11,13 @@ $(document).ready(function(){
 		pcChoice: ""
 	};
 	var game;
-	var button = $('button');
 
 	function startGame(whatwaspressed, whatwasnotpressed, configObj){
 		configObj.userChoice = whatwaspressed;
 		console.log('inside stargame');
 		configObj.pcChoice = whatwasnotpressed;
 		game = new Game(configObj);
+		console.log('user choice is ' + configObj.userChoice);
 		game.init();
 		hideStartMessage();
 	}
@@ -27,13 +27,13 @@ $(document).ready(function(){
 		var val = $(this).data(); 
 		switch(val.value){
 			case 'X':
-			console.log('you pressed x');
-			startGame('X', 'O',configObj);
-			break;
-		case 'O':
-			console.log('YOu pressed o');
-			startGame('O', 'X',configObj);
-			break;
+				console.log('you pressed x');
+				startGame('X', 'O',configObj);
+				break;
+			case 'O':
+				console.log('YOu pressed o');
+				startGame('O', 'X',configObj);
+				break;
 		}
 	});
 
@@ -44,7 +44,7 @@ $(document).ready(function(){
 				elem.on('click',function(){
 					console.log("id " + i + " is clicked");
 					// $(elem).text(userChoice);
-					game.place(i, userChoice);
+					game.place(i, configObj.userChoice);
 					game.letAiThink();
 				});
 
