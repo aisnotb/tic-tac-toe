@@ -13,42 +13,29 @@ $(document).ready(function(){
 	var game;
 	var button = $('button');
 
-	function startGame(whatwaspressed, whatwasnotpressed){
+	function startGame(whatwaspressed, whatwasnotpressed, configObj){
 		configObj.userChoice = whatwaspressed;
+		console.log('inside stargame');
 		configObj.pcChoice = whatwasnotpressed;
 		game = new Game(configObj);
+		game.init();
+		hideStartMessage();
 	}
 
-	button.on('click', function(this){
-		switch(this){
-			case 'X': startGame('X', 'O');
+	var element = $('button');
+	element.on('click', function(){
+		var val = $(this).data(); 
+		switch(val.value){
+			case 'X':
+			console.log('you pressed x');
+			startGame('X', 'O',configObj);
 			break;
-			case 'O': startGame('O', 'X');
+		case 'O':
+			console.log('YOu pressed o');
+			startGame('O', 'X',configObj);
 			break;
 		}
 	});
-
-	// $('#x').on('click', function(){
-	// 	userChooseX = 'X';
-	// 	pcChoice  = 'O';
-	// 	configObj.userChoice = 'X';
-	// 	configObj.pcChoice = 'O';
-	// 	game = new Game(configObj);
-	// 	game.init();
-	// 	hideStartMessage();
-
-	// });
-
-	// $('#o').on('click', function(){
-	// 	userChooseO = 'O';
-	// 	pcChoice = 'X';
-	// 	configObj.userChoice = 'O';
-	// 	configObj.pcChoice = 'X';
-	// 	game = new Game(configObj);
-	// 	game.init();
-	// 	hideStartMessage();
-
-	// });
 
 	function respondToClick(){
 		for (var i = 1; i <= configObj.boardSize * configObj.boardSize ; i++) {
