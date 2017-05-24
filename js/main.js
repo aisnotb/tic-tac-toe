@@ -27,11 +27,9 @@ $(document).ready(function(){
 		var val = $(this).data(); 
 		switch(val.value){
 			case 'X':
-				console.log('you pressed x');
 				startGame('X', 'O',configObj);
 				break;
 			case 'O':
-				console.log('YOu pressed o');
 				startGame('O', 'X',configObj);
 				break;
 		}

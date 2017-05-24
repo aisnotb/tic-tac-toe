@@ -7,22 +7,23 @@ function Game(configObj){
 
 	this.isOn = false;
 	// var userChoice = 'x' || 'o';
+	var moves = 0;
 
-	var board = [];
 	var clicked = new Array(configObj.boardSize * configObj.boardSize);
 
 	this.init = function(){
 		createBoard();
 		initBoard();
-		// if (userChoice === 'O') {
-		// 	this.letAiThink();
-		// }
+		if (userChoice==='O') {
+			this.letAiThink();
+		}
 	};
 
 	this.place = function(number, item){
 		$("#id"+number).text(item);
+		moves++;
+		console.log('moves is ' + moves);
 		clicked[number-1] = true;
-		board[number-1] = userChoice;
 	};
 
 	this.end = function(){
@@ -30,24 +31,42 @@ function Game(configObj){
 	};
 
 	this.reset = function(){
+		moves = 0;
 		this.init();
 	};
 
+	//easy mode
 	this.letAiThink = function(){
-		userInput();
 		console.log("thinking");
 		var temp = random();
-
-		console.log('random is ' + temp);
 		if (isOccupied(temp)) {
-			console.log('this place is occupided');
-			this.letAiThink();
+			if(moves===8){
+				console.log('only one spot is empty go find it');
+				//go and find the last unclicked tile
+				for(var i = 0 ; i < 9; i++){
+					if (clicked[i] === false) {
+						console.log('the last spot is ' + i);
+						if(userChoice==='x'){
+							this.place(i, userChoice);						
+						}else{
+							this.place(i, pcChoice);
+						}
+					}
+				}
+			}else{
+				console.log('this place is occupided');
+				this.letAiThink();
+			}
 		}else{
 			this.place(temp, pcChoice); 
-			console.log("pc choice is " + pcChoice);
-			clicked[temp-1] = true;
+			clicked[temp] = true;
 		}
 	};
+
+	this.letAiThinkHarder = function() {
+		//hard mode
+	};
+
 
 	function createBoard(){
 		// how can i represent board
@@ -63,17 +82,11 @@ function Game(configObj){
 	}
 
 	function initBoard(){
-		// $("span").text('');
 		for (var i = 1; i <= 9; i++) {
 			clicked[i-1] = false;
 		}
 	}
 	
-	function userInput(){
-		console.log('user choice is ' + userChoice);
-		console.log('pc choice is ' + pcChoice);
-	}
-
 	function isOccupied(number){
 		if(clicked[number-1] === true){
 			return true;
@@ -96,9 +109,4 @@ function Game(configObj){
 			}
 		}
 	}
-
-	function letAiThinkHarder() {
-		//hard mode
-	}
-
 }
